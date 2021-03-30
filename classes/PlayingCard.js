@@ -1,7 +1,11 @@
 class PlayingCard {
-  constructor(rank, suite) {
-    this.rank = rank
+  constructor(suite, rank) {
     this.suite = suite
+    this.rank = rank
+  }
+
+  toString() {
+    return `${this.rank} of ${this.suite}`
   }
 }
 
