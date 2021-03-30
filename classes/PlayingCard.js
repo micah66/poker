@@ -4,3 +4,5 @@ class PlayingCard {
     this.suite = suite
   }
 }
+
+export { PlayingCard }
