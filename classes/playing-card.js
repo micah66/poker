@@ -1,7 +1,8 @@
 class PlayingCard {
-  constructor(suite, rank) {
+  constructor(suite, rank, id) {
     this.suite = suite
     this.rank = rank
+    this.id = id
   }
 
   toString() {
