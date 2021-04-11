@@ -77,10 +77,10 @@ class Deck {
     let whichHand = 0.5
     while (!leftHand.isEmpty && !rightHand.isEmpty) {
       if (Math.random() > whichHand) {
-        this.cards.push(leftHand.takeBottomCard())
+        this.cards.push(leftHand.drawBottomCard())
         whichHand += 0.33
       } else {
-        this.cards.push(rightHand.takeBottomCard())
+        this.cards.push(rightHand.drawBottomCard())
         whichHand -= 0.33
       }
     }
