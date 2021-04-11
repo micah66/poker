@@ -6,7 +6,11 @@ class Dealer {
   }
 
   shuffle() {
-    this.deck.shuffle()
+    this.deck.riffleShuffle()
+  }
+
+  sort() {
+    this.deck.sort()
   }
 }
 
