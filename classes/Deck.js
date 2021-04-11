@@ -5,11 +5,12 @@ class Deck {
     this.cards = cards
   }
 
-  static of(suites, ranks) {
+  static from(suites, ranks) {
     const cards = []
+    let i = 0
     for (const suite of suites) {
       for (const rank of ranks) {
-        cards.push(new PlayingCard(suite, rank))
+        cards.push(new PlayingCard(suite, rank, i++))
       }
     }
     return cards
@@ -20,33 +21,39 @@ class Deck {
       console.log(card.toString())
     }
   }
-  
-  takeTopCard() {
+
+  drawTopCard() {
+    this.validateNotEmpty('drawTopCard')
+
     const card = this.cards.pop()
-    this.updateIsEmpty()
+    this.checkIsEmpty()
 
     return card
   }
   
-  takeBottomCard() {
+  drawBottomCard() {
+    this.validateNotEmpty('drawBottomCard')
+
     const card = this.cards.shift()
-    this.updateIsEmpty()
+    this.checkIsEmpty()
 
     return card
   }
 
   insertCardTop(card) {
     this.cards.push(card)
-    this.updateIsEmpty()
   }
 
   insertCardBottom(card) {
     this.cards.unshift(card)
-    this.updateIsEmpty()
   }
 
-  updateIsEmpty() {
+  checkIsEmpty() {
     this.isEmpty = this.cards.length === 0
+  }
+
+  validateNotEmpty(action) {
+    if (this.isEmpty) throw new Error(`Illegal action "${action}": Deck is empty`)
   }
 
   cut() {
@@ -57,14 +64,14 @@ class Deck {
 
   split() {
     const plusMinus = (Math.random() > 0.5) ? 1 : -1
-    const cut = Math.floor(Math.random() * 5) * plusMinus
+    const cut = Math.floor(Math.random() * Math.round(this.cards.length / 10)) * plusMinus
     const leftHand = this.cards.splice(0, (this.cards.length / 2) + cut)
     const rightHand = this.cards.splice(0, this.cards.length)
 
     return [ new Deck(leftHand), new Deck(rightHand) ]
   }
 
-  shuffle() {
+  riffleShuffle() {
     let [ leftHand, rightHand ] = this.split()
 
     let whichHand = 0.5
@@ -85,7 +92,7 @@ class Deck {
 
 class StandardDeck extends Deck {
   constructor() {
-    super(Deck.of(['Clubs', 'Diamonds', 'Hearts', 'Spades'], [
+    super(Deck.from(['Clubs', 'Diamonds', 'Hearts', 'Spades'], [
       'Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'
     ]))
 
@@ -99,6 +106,10 @@ class StandardDeck extends Deck {
     for (const card of this.cards) {
       card.color = cardColorMap[card.suite.toLowerCase()]
     }
+  }
+
+  sort() {
+    this.cards.sort((a,b) => a.id - b.id)
   }
 }
 
