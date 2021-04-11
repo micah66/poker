@@ -1,4 +1,4 @@
-import { PokerDealer } from '../classes/Dealer'
+import { PokerDealer } from '../classes/dealer'
 
 const root = document.getElementById('root')
 root.style.margin = '0'
@@ -22,10 +22,21 @@ shuffleBtn.innerHTML = 'Shuffle'
 root.appendChild(shuffleBtn)
 shuffleBtn.id = 'shuffleBtn'
 
+const sortBtn = document.createElement('button')
+
+sortBtn.innerHTML = 'Sort'
+root.appendChild(sortBtn)
+sortBtn.id = 'sortBtn'
+
 const dealer = new PokerDealer()
 shuffleBtn.onclick = () => {
   dealer.shuffle()
   //dealer.deck.print()
+  renderDeck()
+}
+
+sortBtn.onclick = () => {
+  dealer.sort()
   renderDeck()
 }
 
@@ -44,5 +55,3 @@ function renderDeck() {
     deckDiv.appendChild(cardDiv)
   }
 }
-
-renderDeck()
