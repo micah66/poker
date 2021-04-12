@@ -1,4 +1,4 @@
-import { PlayingCard } from './playing-card'
+import { PlayingCard, SUITES, RANKS } from './playing-card'
 
 class Deck {
   constructor(cards) {
@@ -92,8 +92,8 @@ class Deck {
 
 class StandardDeck extends Deck {
   constructor() {
-    super(Deck.from(['Clubs', 'Diamonds', 'Hearts', 'Spades'], [
-      'Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'
+    super(Deck.from([SUITES.CLUBS, SUITES.DIAMONDS, SUITES.HEARTS, SUITES.SPADES], [
+      RANKS.ACE, RANKS.TWO, RANKS.THREE, RANKS.FOUR, RANKS.FIVE, RANKS.SIX, RANKS.SEVEN, RANKS.EIGHT, RANKS.NINE, RANKS.TEN, RANKS.JACK, RANKS.QUEEN, RANKS.KING
     ]))
 
     const cardColorMap = {
