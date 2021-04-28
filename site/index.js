@@ -1,3 +1,5 @@
+import { PokerDealer } from '../classes/dealer'
+
 const root = document.getElementById('root')
 root.style.margin = '0'
 root.style.backgroundColor = 'lightgrey'
@@ -13,3 +15,43 @@ header.style.textAlign = 'center'
 header.style.fontSize = ''
 
 root.appendChild(header)
+
+const shuffleBtn = document.createElement('button')
+
+shuffleBtn.innerHTML = 'Shuffle'
+root.appendChild(shuffleBtn)
+shuffleBtn.id = 'shuffleBtn'
+
+const sortBtn = document.createElement('button')
+
+sortBtn.innerHTML = 'Sort'
+root.appendChild(sortBtn)
+sortBtn.id = 'sortBtn'
+
+const dealer = new PokerDealer()
+shuffleBtn.onclick = () => {
+  dealer.shuffle()
+  //dealer.deck.print()
+  renderDeck()
+}
+
+sortBtn.onclick = () => {
+  dealer.sort()
+  renderDeck()
+}
+
+function renderDeck() {
+  let deckDiv = document.getElementById('deck')
+  if (deckDiv) deckDiv.innerHTML = ''
+  else deckDiv = document.createElement('div')
+  deckDiv.id = 'deck'
+  root.appendChild(deckDiv)
+  for (const card of dealer.deck.cards) {
+    const cardDiv = document.createElement('span')
+    cardDiv.classList.add('card')
+    cardDiv.innerHTML = card.toString()
+    cardDiv.style.marginRight = '10px'
+    cardDiv.style.color = card.color
+    deckDiv.appendChild(cardDiv)
+  }
+}
